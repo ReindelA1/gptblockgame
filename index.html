@@ -10,11 +10,13 @@
     <h1>Block Builder</h1>
     <div id="gameArea">
         <div id="sidebar">
-            <div class="block" style="background-color: #0000FF;" draggable="true" data-type="basic"></div>
-            <div class="block" style="background-color: #FF0000;" draggable="true" data-type="sticky"></div>
-            <div class="block" style="background-color: #00FF00;" draggable="true" data-type="bouncy"></div>
-            <div class="block" style="background-color: #FFFF00;" draggable="true" data-type="fragile"></div>
-            <div class="block" style="background-color: #FF00FF;" draggable="true" data-type="magnet"></div>
+            <div id="colorPicker">
+                <input type="color" id="colorSelector" value="#0000FF">
+            </div>
+            <div class="block" data-type="circle" draggable="true">Circle</div>
+            <div class="block" data-type="triangle" draggable="true">Triangle</div>
+            <div class="block" data-type="pentagon" draggable="true">Pentagon</div>
+            <div class="block" data-type="hexagon" draggable="true">Hexagon</div>
         </div>
         <canvas id="gameCanvas" width="800" height="600"></canvas>
     </div>
