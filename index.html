@@ -9,12 +9,17 @@
 <body>
     <h1>Block Builder</h1>
     <div id="gameArea">
-        <canvas id="gameCanvas" width="800" height="600"></canvas>
-        <div id="controls">
-            <button id="resetBtn">Reset</button>
-            <p id="status">Status: Ready</p>
+        <div id="sidebar">
+            <div class="block" style="background-color: #0000FF;" draggable="true" data-type="basic"></div>
+            <div class="block" style="background-color: #FF0000;" draggable="true" data-type="sticky"></div>
+            <div class="block" style="background-color: #00FF00;" draggable="true" data-type="bouncy"></div>
+            <div class="block" style="background-color: #FFFF00;" draggable="true" data-type="fragile"></div>
+            <div class="block" style="background-color: #FF00FF;" draggable="true" data-type="magnet"></div>
         </div>
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
     </div>
+    <button id="resetBtn">Reset</button>
+    <p id="status">Status: Ready</p>
     <script src="scripts.js"></script>
 </body>
 </html>
