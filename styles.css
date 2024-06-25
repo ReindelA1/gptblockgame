@@ -23,14 +23,19 @@ h1 {
 }
 
 .block {
-    width: 30px;
-    height: 30px;
+    width: 60px;
+    height: 60px;
     margin-bottom: 10px;
+    padding: 5px;
+    text-align: center;
+    line-height: 50px;
     cursor: grab;
+    background-color: #ccc;
+    border: 2px solid #000;
 }
 
 canvas {
-    border: 2px solid #000;
+    border: 2px solid #FFA500;
     background-color: #fff;
 }
 
@@ -44,6 +49,11 @@ button {
     margin-right: 10px;
 }
 
-canvas {
-    border: 2px solid #FFA500;
+#colorPicker {
+    margin-bottom: 20px;
+}
+
+#colorSelector {
+    width: 100%;
+    padding: 5px;
 }
