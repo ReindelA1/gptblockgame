@@ -28,10 +28,10 @@ let dragOffsetX = 0;
 let dragOffsetY = 0;
 
 document.getElementById('resetBtn').addEventListener('click', resetGame);
-
 canvas.addEventListener('mousedown', onMouseDown);
 canvas.addEventListener('mousemove', onMouseMove);
 canvas.addEventListener('mouseup', onMouseUp);
+canvas.addEventListener('click', onCanvasClick);
 
 initGrid();
 drawGrid();
@@ -90,6 +90,17 @@ function onMouseUp() {
     dragBlock = null;
 }
 
+function onCanvasClick(event) {
+    const { offsetX, offsetY } = event;
+    const col = Math.floor(offsetX / blockSize);
+    const row = Math.floor(offsetY / blockSize);
+    if (!grid[row][col]) {
+        addBlock(selectedBlock, col, row);
+        grid[row][col] = selectedBlock;
+        drawGrid();
+    }
+}
+
 function getBlockAt(x, y) {
     for (const type in blocks) {
         for (const block of blocks[type]) {
@@ -101,8 +112,8 @@ function getBlockAt(x, y) {
     return null;
 }
 
-function addBlock(type, x, y) {
-    blocks[type].push({ x: x * blockSize, y: y * blockSize });
+function addBlock(type, col, row) {
+    blocks[type].push({ x: col * blockSize, y: row * blockSize });
 }
 
 function resetGame() {
@@ -113,5 +124,6 @@ function resetGame() {
         'fragile': [],
         'magnet': []
     };
+    initGrid();
     drawGrid();
 }
