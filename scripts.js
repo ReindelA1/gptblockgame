@@ -13,16 +13,16 @@ const blockColors = {
 };
 
 let blocks = [];
-let isDragging = false;
-let dragBlock = null;
-let dragOffsetX = 0;
-let dragOffsetY = 0;
+let draggedBlock = null;
 
 document.getElementById('resetBtn').addEventListener('click', resetGame);
-canvas.addEventListener('mousedown', onMouseDown);
-canvas.addEventListener('mousemove', onMouseMove);
-canvas.addEventListener('mouseup', onMouseUp);
-canvas.addEventListener('click', onCanvasClick);
+canvas.addEventListener('dragover', allowDrop);
+canvas.addEventListener('drop', onDrop);
+
+const sidebarBlocks = document.querySelectorAll('#sidebar .block');
+sidebarBlocks.forEach(block => {
+    block.addEventListener('dragstart', onDragStart);
+});
 
 initGrid();
 drawGrid();
@@ -30,7 +30,7 @@ drawGrid();
 function initGrid() {
     for (let row = 0; row < rows; row++) {
         for (let col = 0; col < cols; col++) {
-            addBlock('basic', col, row); // Adding 'basic' block to all grid cells initially for visibility
+            blocks.push({ type: null, x: col * blockSize, y: row * blockSize });
         }
     }
 }
@@ -39,7 +39,7 @@ function drawGrid() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (let row = 0; row < rows; row++) {
         for (let col = 0; col < cols; col++) {
-            ctx.strokeStyle = '#ccc';
+            ctx.strokeStyle = '#FFA500';
             ctx.strokeRect(col * blockSize, row * blockSize, blockSize, blockSize);
         }
     }
@@ -48,4 +48,32 @@ function drawGrid() {
 
 function drawBlocks() {
     blocks.forEach(block => {
-        ctx
+        if (block.type) {
+            ctx.fillStyle = blockColors[block.type];
+            ctx.fillRect(block.x, block.y, blockSize, blockSize);
+        }
+    });
+}
+
+function onDragStart(event) {
+    draggedBlock = event.target.dataset.type;
+}
+
+function allowDrop(event) {
+    event.preventDefault();
+}
+
+function onDrop(event) {
+    event.preventDefault();
+    const { offsetX, offsetY } = event;
+    const col = Math.floor(offsetX / blockSize);
+    const row = Math.floor(offsetY / blockSize);
+    const blockIndex = row * cols + col;
+    blocks[blockIndex].type = draggedBlock;
+    drawGrid();
+}
+
+function resetGame() {
+    blocks.forEach(block => block.type = null);
+    drawGrid();
+}
